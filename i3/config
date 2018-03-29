@@ -10,13 +10,14 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod1
-set $background #121212
-set $foreground #bcbcb9
-set $cyan #178afb
+set $background #1B1E27
+set $foreground #9FB0CC
+set $accent #89C5C6
+#set $accent #436B6B
 set $magenta #7f193a
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font Misc Termsyn:size=8;1
+font pango:Overpass Regular
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -33,8 +34,7 @@ font Misc Termsyn:size=8;1
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
-
+bindsym $mod+Return exec xfce4-terminal
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -118,11 +118,11 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 # Workspace variable names
-set $WS1 term
-set $WS2 web
-set $WS3 misc
-set $WS4 media
-set $WS5 code
+set $WS1 one
+set $WS2 two
+set $WS3 three
+set $WS4 four
+set $WS5 five
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -134,8 +134,8 @@ bindsym $mod+Shift+r restart
 # # Theme colors
 # # class                 	border  	backgr. 	text    	indic.  	child_border
 # # My colors
-client.background		$background
-client.focused         	#bcbcb9 #121212	$bcbcb9 $cyan	   $cyan
+client.background		    $background
+client.focused         	$foreground $background $foreground	$foreground     $foreground
 client.unfocused       	$foreground	$background	$foreground	$background	$background
 client.focused_inactive	$foreground	$background	$foreground	$background	$background
 client.urgent			$foreground	$background	$foreground	$background	$background
@@ -143,24 +143,24 @@ client.placeholder		$foreground	$background	$foreground	$background	$background
 #
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+# These bindings trigger as soon as you enter the resize mode
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
+# Pressing left will shrink the window’s width.
+# Pressing right will grow the window’s width.
+# Pressing up will shrink the window’s height.
+# Pressing down will grow the window’s height.
+    bindsym j resize shrink width 10 px or 10 ppt
         bindsym k resize grow height 10 px or 10 ppt
         bindsym l resize shrink height 10 px or 10 ppt
         bindsym semicolon resize grow width 10 px or 10 ppt
 
-        # same bindings, but for the arrow keys
+# same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
         bindsym Down resize grow height 10 px or 10 ppt
         bindsym Up resize shrink height 10 px or 10 ppt
         bindsym Right resize grow width 10 px or 10 ppt
 
-        # back to normal: Enter or Escape
+# back to normal: Enter or Escape
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
@@ -169,29 +169,37 @@ bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
+
+#bar {
+#    i3bar_command i3bar
+#    i3bar_command ~/.config/i3/lemonbar/i3_lemonbar.py
+#    font pango:PowerlineFont 12
+#}
+
+
+
 bar {
-        status_command i3status
-		colors {
-				    separator          #512bac
-			        background         #020913
-				    statusline         #ffffff
-				    focused_workspace  #bcbcb9 $cyan #bcbcb9
-				    active_workspace   #bcbcb9 $cyan   #bcbcb9
-				    inactive_workspace #bcbcb9 #121212 #bcbcb9
-			        urgent_workspace   $magenta   $cyan   #bcbcb9
-											  
-				}
+    status_command i3status
+        colors {
+                separator          #512bac
+                background         #1B1E27
+                statusline         #ffffff
+                focused_workspace  #1B1E27 $accent $foreground
+                active_workspace   #1B1E27 $accent $foreground
+                inactive_workspace #1B1E27 #121212 $foreground
+                urgent_workspace   $magenta   $accent   #bcbcb9
+        }
 }
 
 #Disabling window titlebars
-for_window [class="^.*"] border pixel 1 
+for_window [class="^.*"] border pixel 1
 
 #Set the gaps
-workspace $WS1 gaps inner 5
-workspace $WS1 gaps outer 2
+workspace $WS1 gaps inner 0
+workspace $WS1 gaps outer 0
 
-workspace $WS3 gaps inner 10
-workspace $WS3 gaps outer 5
+workspace $WS3 gaps inner 0
+workspace $WS3 gaps outer 2
 
 workspace $WS2 gaps inner 0
 workspace $WS2 gaps outer 0
@@ -218,13 +226,15 @@ bindsym XF86AudioPrev         exec playerctl previous
 bindsym $mod+d                exec rofi -show run
 bindsym $mod+Shift+e          exec /home/nelson/.config/i3/scripts/exit_menu
 bindsym --release $mod+z      exec scrot -s ~/Pictures/Screenshots/%b%d::%H%M%S.png
-bindsym $mod+Shift+o          exec /home/nelson/.config/polybar/launch.sh
+bindsym $mod+Shift+o          exec /home/nelson/.config/i3/lemonbar/i3_lemonbar.sh
 
 
 #Startup applications
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec --no-startup-id  ~/.config/polybar/launch.sh
 exec --no-startup-id workspace 4; $mod+Return
-exec --no-startup-id i3-msg 'workspace term; exec i3-sensible-terminal'
-exec --no-startup-id i3-msg 'workspace web; exec google-chrome'
-exec --no-startup-id feh --bg-fill ~/Documents/Themes/weekend_in_the_city__by_aestheticasylum.jpg
-exec --no-startup-id i3-msg 'workspace misc; exec Telegram'
+exec --no-startup-id i3-msg 'workspace one; exec xfce4-terminal;exec sudo echo "0">/sys/module/hid_apple/parameters/iso_layout'
+exec --no-startup-id i3-msg 'workspace one; exec xfce4-terminal'
+exec --no-startup-id i3-msg 'workspace two; exec google-chrome'
+exec --no-startup-id feh --bg-fill /home/nelson/Pictures/WallPapers/yosemite.jpg
+
+#exec --no-startup-id powerline-lemonbar --i3 --clicks --height 16 -- -a 40 -b -f "DejaVu Sans Mono for Powerline-10" -f "FontAwesome-10"

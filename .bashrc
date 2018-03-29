@@ -17,8 +17,8 @@ export HISTCONTROL=ignoredups:erasedups
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=2000
-HISTFILESIZE=3000
+HISTSIZE=750
+HISTFILESIZE=1200
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -100,7 +100,7 @@ fi
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
 if [ -f ~/.bash_aliases ]; then
-		. ~/.bash_aliases
+		source ~/.bash_aliases
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -118,3 +118,13 @@ export PATH=$PATH:~/.local/bin
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+eval $(dircolors -b $HOME/.dircolors)
+
+function _update_ps1() {
+      PS1=$(powerline-shell $?)
+
+}
+
+if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1  ]]; then
+      PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
+    fi
