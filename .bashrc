@@ -76,14 +76,13 @@ esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-		test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 		alias ls='ls --color=auto'
-		#alias dir='dir --color=auto'
-		#alias vdir='vdir --color=auto'
+		alias dir='dir --color=auto'
+		alias vdir='vdir --color=auto'
 
-		#alias grep='grep --color=auto'
-		#alias fgrep='fgrep --color=auto'
-		#alias egrep='egrep --color=auto'
+		alias grep='grep --color=auto'
+		alias fgrep='fgrep --color=auto'
+		alias egrep='egrep --color=auto'
 fi
 
 # colored GCC warnings and errors
@@ -118,7 +117,6 @@ export PATH=$PATH:~/.local/bin
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-eval $(dircolors -b $HOME/.dircolors)
 
 function _update_ps1() {
       PS1=$(powerline-shell $?)
@@ -128,3 +126,7 @@ function _update_ps1() {
 if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1  ]]; then
       PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
     fi
+
+if [ -x vivid ]; then
+    export LS_COLORS="$(vivid generate molokai)"
+fi
