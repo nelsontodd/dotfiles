@@ -127,6 +127,4 @@ if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1  ]]; then
       PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
     fi
 
-if [ -x vivid ]; then
-    export LS_COLORS="$(vivid generate molokai)"
-fi
+export LS_COLORS="$(vivid generate gruvbox-dark)"
