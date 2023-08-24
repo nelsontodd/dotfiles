@@ -10,7 +10,8 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 "}}}
 
 " ================= looks and GUI stuff ================== "{{{
-
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.2' }
 Plug 'luochen1990/rainbow'                              " rainbow parenthesis
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'Jorengarenar/vim-MvVis'                           " move visual selection

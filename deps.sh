@@ -11,3 +11,8 @@ sudo dpkg -i vivid_0.8.0_amd64.deb
 #From https://github.com/ryanoasis/nerd-fonts#option-3-install-script
 mkdir -p ~/.local/share/fonts
 cd ~/.local/share/fonts && curl -fLO https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/DroidSansMono/DroidSansMNerdFont-Regular.otf
+
+#Need ubuntu
+sudo add-apt-repository ppa:neovim-ppa/stable
+sudo apt-get update
+sudo apt-get install neovim
