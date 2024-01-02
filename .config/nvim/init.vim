@@ -31,6 +31,8 @@ Plug 'tpope/vim-surround'                               " Surround: ex: cs]) cha
 Plug 'itchyny/lightline.vim'                            " lightweight version of powerline for vim.
 Plug 'itchyny/vim-gitbranch'                            " Shows the git branch were working on - for use with lightline
 Plug 'ryanoasis/vim-devicons'                           " pretty icons everywhere
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Better folding and better syntax highlight
+Plug 'qpkorr/vim-bufkill'                             " Kill a buffer without closing the window with :BD 
 call plug#end()
 
 " Rainbow parentheses
@@ -42,7 +44,6 @@ set termguicolors
 "Vim Slime
 let g:slime_target = "tmux"
 
-
 "Themeing from sui
 set mouse=a                                             " enable mouse scrolling
 set clipboard+=unnamedplus                              " use system clipboard by default
@@ -51,7 +52,7 @@ set expandtab smarttab                                  " tab key actions
 set incsearch ignorecase smartcase hlsearch             " highlight text while searching
 set list listchars=trail:»,tab:»-                       " use tab to navigate in list mode
 set fillchars+=vert:\▏                                  " requires a patched nerd font (try FiraCode)
-set wrap breakindent                                    " wrap long lines to the width set by tw
+"set wrap breakindent                                    " wrap long lines to the width set by tw
 set encoding=utf-8                                      " text encoding
 set number                                              " enable numbers on the left
 set relativenumber                                      " current line is 0
@@ -61,7 +62,7 @@ set noshowcmd                                           " to get rid of display 
 set conceallevel=2                                      " set this so we wont break indentation plugin
 set splitright                                          " open vertical split to the right
 set splitbelow                                          " open horizontal split to the bottom
-set tw=90                                               " auto wrap lines that are longer than that
+"set tw=90                                               " auto wrap lines that are longer than that
 set emoji                                               " enable emojis
 set history=1000                                        " history limit
 set backspace=indent,eol,start                          " sensible backspacing
@@ -128,3 +129,22 @@ let g:lightline = {
       \ },
       \ }
 set guifont=DroidSansMono\ Nerd\ Font\ 11 " Note: Download this font using install script from https://github.com/ryanoasis/nerd-fonts#option-3-install-script and if on osx on local (using iterm2) must manually change profile/text to use this droidsans font (and install this font on local too)
+
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = { "c", "python" },
+  sync_install = false,
+  auto_install = true,
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false
+  }
+}
+EOF
+
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
+"folding: zR open all fold, zM close all fold
+autocmd BufReadPost,FileReadPost * normal zR
+
+
