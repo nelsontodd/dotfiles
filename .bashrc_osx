@@ -83,13 +83,15 @@ if ! shopt -oq posix; then
 				. /etc/bash_completion
 		fi
 fi
+export PATH=$PATH:~/.local/bin
+export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 function _update_ps1() {
-      PS1=$(powerline-go $?)
+      PS1=$(powerline-shell $?)
 
 }
 
@@ -98,11 +100,10 @@ if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1  ]]; then
     fi
 
 eval `ssh-agent`
-#ssh-add ~/.ssh/github_macbook
+ssh-add ~/.ssh/github_macbook
+ssh-add ~/.ssh/nelsontodd_github_macbook
 #For OSX ls colors only
-#must brew install gnu coreutils
 export CLICOLOR=1
-export PATH=$PATH:~/.local/bin
-export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
+
 export MANPATH="/opt/homebrew/opt/coreutils/libexec/gnuman:$MANPATH"
 alias ls="ls --color=always"
