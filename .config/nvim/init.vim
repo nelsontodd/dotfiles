@@ -26,7 +26,7 @@ Plug 'psliwka/vim-smoothie'                                 " some very smooth a
 Plug 'wellle/tmux-complete.vim'                             " complete words from a tmux panes
 Plug 'tpope/vim-eunuch'                                     " run common Unix commands inside Vim
 Plug 'machakann/vim-sandwich'                               " make sandwiches
-Plug 'mhinz/vim-startify'                                   " Startify
+"Plug 'mhinz/vim-startify'                                   " Startify
 Plug 'tpope/vim-surround'                                   " Surround: ex: cs]) changes ]->)
 Plug 'itchyny/lightline.vim'                                " lightweight version of powerline for vim.
 Plug 'itchyny/vim-gitbranch'                                " Shows the git branch were working on - for use with lightline
@@ -38,8 +38,9 @@ Plug 'ycm-core/YouCompleteMe'                               " Autocompletion: us
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'rose-pine/neovim'
 Plug 'nvim-telescope/telescope-symbols.nvim'
-Plug 'bling/vim-bufferline'
-
+"Plug 'akinsho/bufferline.nvim', { 'tag': 'V2.*', 'requires': 'kyazdani42/nvim-web-devicons'} "Display tabs at top of screen. kinda ugly
+Plug 'nvim-tree/nvim-web-devicons'
+Plug 'nvimdev/dashboard-nvim'
 call plug#end()
 
 " Rainbow parentheses
@@ -135,7 +136,8 @@ let g:lightline = {
       \ 'component_function': {
       \   'gitbranch': 'gitbranch#name'
       \ },
-      \ }
+      \'colorscheme': 'one',
+      \}
 set guifont=DroidSansMono\ Nerd\ Font\ 11 " Note: Download this font using install script from https://github.com/ryanoasis/nerd-fonts#option-3-install-script and if on osx on local (using iterm2) must manually change profile/text to use this droidsans font (and install this font on local too)
 
 lua << EOF
@@ -172,7 +174,47 @@ require("rose-pine").setup({
 	},
 })
 EOF
-colorscheme rose-pine-moon
+colorscheme rose-pine
 
 "Stuff for LSP (Python LSP)
 let g:python3_host_prog = '/opt/homebrew/bin/python3'
+
+"lua << EOF
+"require('bufferline').setup {
+  "options = {
+    "offsets = {{ filetype = "NERDTree", text = "File Explorer", text_align = "left" }},
+    "separator_style = "slant",
+    "show_buffer_close_icons = false,
+    "show_close_icon = false,
+  "}
+"}
+"EOF
+
+
+lua << EOF
+require("dashboard").setup({
+    config = {
+        dashboard_default_executive = 'telescope',
+        dashboard_custom_header = {
+            ' ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗',
+            ' ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║',
+            ' ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║',
+            ' ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║',
+            ' ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║',
+            ' ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝',
+            '                                                  ',
+        },
+        dashboard_custom_shortcut = {
+            last_session       = 'SPC s l',
+            find_history       = 'SPC f h',
+            find_file          = 'SPC f f',
+            new_file           = 'SPC c n',
+            change_colorscheme = 'SPC t c',
+            find_word          = 'SPC f a',
+            book_marks         = 'SPC f b',
+        },
+        dashboard_custom_footer = {'Neovim - Edit at the speed of thought'}
+    }
+})
+EOF
+
