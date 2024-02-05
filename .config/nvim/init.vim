@@ -22,17 +22,24 @@ Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
 Plug 'jpalardy/vim-slime'
 Plug 'preservim/nerdtree'
-Plug 'psliwka/vim-smoothie'                             " some very smooth ass scrolling
-Plug 'wellle/tmux-complete.vim'                         " complete words from a tmux panes
-Plug 'tpope/vim-eunuch'                                 " run common Unix commands inside Vim
-Plug 'machakann/vim-sandwich'                           " make sandwiches
-Plug 'mhinz/vim-startify'                               " Startify
-Plug 'tpope/vim-surround'                               " Surround: ex: cs]) changes ]->)
-Plug 'itchyny/lightline.vim'                            " lightweight version of powerline for vim.
-Plug 'itchyny/vim-gitbranch'                            " Shows the git branch were working on - for use with lightline
-Plug 'ryanoasis/vim-devicons'                           " pretty icons everywhere
+Plug 'psliwka/vim-smoothie'                                 " some very smooth ass scrolling
+Plug 'wellle/tmux-complete.vim'                             " complete words from a tmux panes
+Plug 'tpope/vim-eunuch'                                     " run common Unix commands inside Vim
+Plug 'machakann/vim-sandwich'                               " make sandwiches
+Plug 'mhinz/vim-startify'                                   " Startify
+Plug 'tpope/vim-surround'                                   " Surround: ex: cs]) changes ]->)
+Plug 'itchyny/lightline.vim'                                " lightweight version of powerline for vim.
+Plug 'itchyny/vim-gitbranch'                                " Shows the git branch were working on - for use with lightline
+Plug 'ryanoasis/vim-devicons'                               " pretty icons everywhere
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Better folding and better syntax highlight
-Plug 'qpkorr/vim-bufkill'                             " Kill a buffer without closing the window with :BD 
+Plug 'qpkorr/vim-bufkill'                                   " Kill a buffer without closing the window with :BD 
+Plug 'gennaro-tedesco/nvim-jqx'                             " JSON Handling: JqxList and JqxQuery
+Plug 'ycm-core/YouCompleteMe'                               " Autocompletion: using language syntax and character extrapolation
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'rose-pine/neovim'
+Plug 'nvim-telescope/telescope-symbols.nvim'
+Plug 'bling/vim-bufferline'
+
 call plug#end()
 
 " Rainbow parentheses
@@ -72,7 +79,6 @@ set foldlevel=0                                         " open all folds by defa
 set inccommand=nosplit                                  " visual feedback while substituting
 set showtabline=0                                       " always show tabline
 set grepprg=rg\ --vimgrep                               " use rg as default grepper
-let g:webdevicons_enable_startify = 1                   " Startify
 
 " required by coc
 set hidden
@@ -85,9 +91,11 @@ set signcolumn=yes
 
 " Themeing
 " let g:material_theme_style = 'default' | 'palenight' | 'ocean' | 'lighter' | 'darker' | 'default-community' | 'palenight-community' | 'ocean-community' | 'lighter-community' | 'darker-community'
-let g:material_terminal_italics = 1
-let g:material_theme_style = 'ocean-community'
-colorscheme material
+"let g:material_terminal_italics = 1
+"let g:material_theme_style = 'darker-community'
+"colorscheme material
+"
+
 " For Neovim 0.1.3 and 0.1.4 - https://github.com/neovim/neovim/pull/2198
 if (has('nvim'))
   let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
@@ -147,4 +155,24 @@ set foldexpr=nvim_treesitter#foldexpr()
 "folding: zR open all fold, zM close all fold
 autocmd BufReadPost,FileReadPost * normal zR
 
+"YouCompleteMe
+set encoding=utf-8
+set guifont=DroidSansMono\ Nerd\ Font:h11
+let g:webdevicons_enable_startify = 1                   " Startify
 
+lua << EOF
+require("rose-pine").setup({
+	highlight_groups = {
+		TelescopeBorder = { fg = "highlight_high", bg = "none" },
+		TelescopeNormal = { bg = "none" },
+		TelescopePromptNormal = { bg = "base" },
+		TelescopeResultsNormal = { fg = "subtle", bg = "none" },
+		TelescopeSelection = { fg = "text", bg = "base" },
+		TelescopeSelectionCaret = { fg = "rose", bg = "rose" },
+	},
+})
+EOF
+colorscheme rose-pine-moon
+
+"Stuff for LSP (Python LSP)
+let g:python3_host_prog = '/opt/homebrew/bin/python3'
