@@ -130,3 +130,4 @@ if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1  ]]; then
 export LS_COLORS="$(vivid generate gruvbox-dark)"
 eval `ssh-agent`
 ssh-add ~/.ss/github
+alias vim="nvim"
