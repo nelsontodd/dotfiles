@@ -16,7 +16,7 @@ Plug 'luochen1990/rainbow'                              " rainbow parenthesis
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'Jorengarenar/vim-MvVis'                           " move visual selection
 "}}}
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}         " lsp 
 Plug 'JuliaEditorSupport/julia-vim'
 Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
@@ -163,22 +163,10 @@ set encoding=utf-8
 set guifont=DroidSansMono\ Nerd\ Font:h11
 let g:webdevicons_enable_startify = 1                   " Startify
 
-lua << EOF
-require("rose-pine").setup({
-	highlight_groups = {
-		TelescopeBorder = { fg = "highlight_high", bg = "none" },
-		TelescopeNormal = { bg = "none" },
-		TelescopePromptNormal = { bg = "base" },
-		TelescopeResultsNormal = { fg = "subtle", bg = "none" },
-		TelescopeSelection = { fg = "text", bg = "base" },
-		TelescopeSelectionCaret = { fg = "rose", bg = "rose" },
-	},
-})
-EOF
 colorscheme rose-pine
 
 "Stuff for LSP (Python LSP)
-let g:python3_host_prog = '/opt/homebrew/bin/python3'
+let g:python3_host_prog = '/usr/bin/python3'
 
 "lua << EOF
 "require('bufferline').setup {
@@ -226,8 +214,11 @@ EOF
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 \   'python': ['black'],
+\   'sh':  ['shfmt']
 \}
 let g:ale_python_pylint_options = '--disable=missing-docstring'
+let g:ale_shell_sh_shellcheck_executable = '/usr/bin/shfmt' " Specify the path to shellcheck if it's not in your $PATH
+
 
 "I dont want change history to persist between sessions
 set noundofile
