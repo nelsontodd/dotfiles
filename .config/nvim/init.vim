@@ -41,6 +41,7 @@ Plug 'nvim-telescope/telescope-symbols.nvim'
 "Plug 'akinsho/bufferline.nvim', { 'tag': 'V2.*', 'requires': 'kyazdani42/nvim-web-devicons'} "Display tabs at top of screen. kinda ugly
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'nvimdev/dashboard-nvim'
+Plug 'dense-analysis/ale'
 call plug#end()
 
 " Rainbow parentheses
@@ -218,3 +219,15 @@ require("dashboard").setup({
 })
 EOF
 
+
+"Ale
+
+" In ~/.vim/vimrc, or somewhere similar.
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'python': ['black'],
+\}
+let g:ale_python_pylint_options = '--disable=missing-docstring'
+
+"I dont want change history to persist between sessions
+set noundofile
