@@ -12,6 +12,7 @@ pip3 install powerline-shell
 pip3 install pynvim
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 wget "https://github.com/sharkdp/vivid/releases/download/v0.8.0/vivid_0.8.0_amd64.deb"
+curl https://pyenv.run | bash #pyenv
 sudo dpkg -i vivid_0.8.0_amd64.deb
 #From https://github.com/ryanoasis/nerd-fonts#option-3-install-script
 mkdir -p ~/.local/share/fonts

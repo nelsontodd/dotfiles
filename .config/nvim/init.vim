@@ -18,7 +18,6 @@ Plug 'Jorengarenar/vim-MvVis'                           " move visual selection
 "}}}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}         " lsp 
 Plug 'JuliaEditorSupport/julia-vim'
-Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
 Plug 'jpalardy/vim-slime'
 Plug 'preservim/nerdtree'
