@@ -218,7 +218,9 @@ let g:ale_fixers = {
 \}
 let g:ale_python_pylint_options = '--disable=missing-docstring'
 let g:ale_shell_sh_shellcheck_executable = '/usr/bin/shfmt' " Specify the path to shellcheck if it's not in your $PATH
-
-
+let g:loaded_golden_ratio = 0
 "I dont want change history to persist between sessions
-s
+set noundofile
+"Show number of search matches in status line - why tf is this disabled by
+"default lol
+set shortmess-=S
