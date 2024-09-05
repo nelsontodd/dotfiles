@@ -11,14 +11,13 @@ call plug#begin(expand('~/.config/nvim/plugged'))
 
 " ================= looks and GUI stuff ================== "{{{
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.2' }
+Plug 'nvim-telescope/telescope.nvim'
 Plug 'luochen1990/rainbow'                              " rainbow parenthesis
 Plug 'kaicataldo/material.vim', { 'branch': 'main' }
 Plug 'Jorengarenar/vim-MvVis'                           " move visual selection
 "}}}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}         " lsp 
 Plug 'JuliaEditorSupport/julia-vim'
-Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
 Plug 'jpalardy/vim-slime'
 Plug 'preservim/nerdtree'
@@ -42,6 +41,21 @@ Plug 'nvim-telescope/telescope-symbols.nvim'
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'nvimdev/dashboard-nvim'
 Plug 'dense-analysis/ale'
+
+" Deps
+Plug 'stevearc/dressing.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'MunifTanjim/nui.nvim'
+
+" Optional deps
+Plug 'nvim-tree/nvim-web-devicons' "or Plug 'echasnovski/mini.icons'
+Plug 'HakonHarnes/img-clip.nvim'
+Plug 'zbirenbaum/copilot.lua'
+Plug 'MeanderingProgrammer/render-markdown.nvim'
+
+" Yay, pass source=true if you want to build from source
+Plug 'yetone/avante.nvim', { 'branch': 'main'}
+
 call plug#end()
 
 " Rainbow parentheses
@@ -213,12 +227,27 @@ EOF
 " In ~/.vim/vimrc, or somewhere similar.
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'python': ['black'],
+\   'python': ['black', 'isort'],
 \   'sh':  ['shfmt']
 \}
 let g:ale_python_pylint_options = '--disable=missing-docstring'
 let g:ale_shell_sh_shellcheck_executable = '/usr/bin/shfmt' " Specify the path to shellcheck if it's not in your $PATH
+" Python linters
+let g:ale_linters = {
+\   'python': ['flake8'],
+\}
 
 
 "I dont want change history to persist between sessions
 set noundofile
+
+"AI Tools
+lua << EOF
+-- deps:
+require('img-clip').setup()
+require('copilot').setup()
+require('render-markdown').setup()
+require('avante_lib').load()
+require('avante.api').build()
+require('avante').setup()
+EOF
