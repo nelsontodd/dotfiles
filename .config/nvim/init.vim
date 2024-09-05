@@ -33,7 +33,6 @@ Plug 'ryanoasis/vim-devicons'                               " pretty icons every
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Better folding and better syntax highlight
 Plug 'qpkorr/vim-bufkill'                                   " Kill a buffer without closing the window with :BD 
 Plug 'gennaro-tedesco/nvim-jqx'                             " JSON Handling: JqxList and JqxQuery
-Plug 'ycm-core/YouCompleteMe'                               " Autocompletion: using language syntax and character extrapolation
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'rose-pine/neovim'
 Plug 'nvim-telescope/telescope-symbols.nvim'
@@ -241,6 +240,9 @@ let g:ale_linters = {
 "I dont want change history to persist between sessions
 set noundofile
 
+"Show number of search matches in status line - why tf is this disabled by
+"default lol
+set shortmess-=S
 "AI Tools
 lua << EOF
 -- deps:
