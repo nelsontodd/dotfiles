@@ -8,7 +8,8 @@ sudo apt-get install nodejs npm
 sudo apt-get install python3-pip
 sudo apt-get install cmake
 sudo apt-get install python3-virtualenv
-pip3 install powerline-shell
+#Starship replaces powerline-shell
+curl -sS https://starship.rs/install.sh | sh
 pip3 install pylint
 pip3 install black
 pip3 install pynvim

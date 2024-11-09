@@ -34,7 +34,9 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Better folding and
 Plug 'qpkorr/vim-bufkill'                                   " Kill a buffer without closing the window with :BD 
 Plug 'gennaro-tedesco/nvim-jqx'                             " JSON Handling: JqxList and JqxQuery
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'rose-pine/neovim'
+"Plug 'rose-pine/neovim'
+"Plug 'morhetz/gruvbox'
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'nvim-telescope/telescope-symbols.nvim'
 "Plug 'akinsho/bufferline.nvim', { 'tag': 'V2.*', 'requires': 'kyazdani42/nvim-web-devicons'} "Display tabs at top of screen. kinda ugly
 Plug 'nvim-tree/nvim-web-devicons'
@@ -176,7 +178,29 @@ set encoding=utf-8
 set guifont=DroidSansMono\ Nerd\ Font:h11
 let g:webdevicons_enable_startify = 1                   " Startify
 
-colorscheme rose-pine
+"colorscheme rose-pine
+"let g:gruvbox_contrast_dark = 'hard'
+"let g:gruvbox_italic=1
+"colorscheme gruvbox
+"set background=dark
+lua << EOF
+require("catppuccin").setup({
+    flavour = "mocha", -- latte, frappe, macchiato, mocha
+    background = { -- :h background
+        light = "latte",
+        dark = "mocha",
+    },
+    transparent_background = false,
+    term_colors = true,
+    integrations = {
+        coc_nvim = true,
+        telescope = true,
+        treesitter = true,
+    },
+})
+EOF
+colorscheme catppuccin
+set background=dark
 
 "Stuff for LSP (Python LSP)
 let g:python3_host_prog = '/usr/bin/python3'
